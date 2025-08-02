@@ -1,0 +1,23 @@
+<idea-plugin>
+    <id>com.github.pakisan.arazzoideaplugin</id>
+    <name>Arazzo</name>
+    <vendor email="pavelbodyachevskiy@gmail.com" url="https://github.com/Pakisan">Pavel Bodiachevskii IE</vendor>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <depends>org.jetbrains.plugins.yaml</depends>
+    <depends>com.intellij.modules.json</depends>
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+
+        <!-- Icons to render when working with Arazzo files -->
+        <iconProvider implementation="com.github.pakisan.arazzoideaplugin.extensions.icon.ArazzoIconProvider" id="arazzoIconProvider" order="first"/>
+
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
