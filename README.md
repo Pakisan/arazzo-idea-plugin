@@ -1,3 +1,6 @@
+![JetBrains Plugin](https://img.shields.io/jetbrains/plugin/v/28079-arazzo)
+[![GitHub stars](https://img.shields.io/github/stars/Pakisan/arazzo-idea-plugin?style=social)](https://github.com/Pakisan/arazzo-idea-plugin/stargazers)
+
 ## 🚀 Arazzo Plugin for IntelliJ-based IDEs
 
 Enhance your Arazzo development workflow directly within IntelliJ IDEA, Android Studio, and other JetBrains IDEs.
