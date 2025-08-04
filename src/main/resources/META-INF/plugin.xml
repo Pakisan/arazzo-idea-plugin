@@ -15,6 +15,10 @@
         <!-- Icons to render when working with Arazzo files -->
         <iconProvider implementation="com.github.pakisan.arazzoideaplugin.extensions.icon.ArazzoIconProvider" id="arazzoIconProvider" order="first"/>
 
+        <!-- AsyncAPI specification completion -->
+        <completion.contributor language="JSON" implementationClass="com.github.pakisan.arazzoideaplugin.extensions.completion.ArazzoSpecificationCompletionContributor"/>
+        <completion.contributor language="yaml" implementationClass="com.github.pakisan.arazzoideaplugin.extensions.completion.ArazzoSpecificationCompletionContributor"/>
+
     </extensions>
 
     <actions>

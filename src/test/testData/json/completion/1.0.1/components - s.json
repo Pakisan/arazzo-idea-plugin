@@ -1,0 +1,117 @@
+{
+  "arazzo": "1.0.1",
+  "info": {
+    "title": "Petstore - Apply Coupons",
+    "version": "1.0.0",
+    "description": "Illustrates a workflow whereby a client a) finds a pet in the petstore,  b) finds coupons for that pet, and finally c) orders the pet while applying the coupons from step b."
+  },
+  "sourceDescriptions": [
+    {
+      "name": "pet-coupons",
+      "url": "./pet-coupons.openapi.yaml",
+      "type": "openapi"
+    }
+  ],
+  "workflows": [
+    {
+      "workflowId": "apply-coupon",
+      "summary": "Apply a coupon to a pet order.",
+      "description": "This is how you can find a pet, find an applicable coupon, and apply that coupon in your order. The workflow concludes by outputting the ID of the placed order.",
+      "inputs": {
+        "$ref": "#/components/inputs/apply_coupon_input"
+      },
+      "steps": [
+        {
+          "stepId": "find-pet",
+          "description": "Find a pet based on the provided tags.",
+          "operationId": "findPetsByTags",
+          "parameters": [
+            {
+              "name": "pet_tags",
+              "in": "query",
+              "value": "$inputs.my_pet_tags"
+            }
+          ],
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 200"
+            }
+          ],
+          "outputs": {
+            "my_pet_id": "$response.body#/0/id"
+          }
+        },
+        {
+          "stepId": "find-coupons",
+          "description": "Find a coupon available for the selected pet.",
+          "operationId": "getPetCoupons",
+          "parameters": [
+            {
+              "name": "pet_id",
+              "in": "path",
+              "value": "$steps.find-pet.outputs.my_pet_id"
+            }
+          ],
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 200"
+            }
+          ],
+          "outputs": {
+            "my_coupon_code": "$response.body#/couponCode"
+          }
+        },
+        {
+          "stepId": "place-order",
+          "description": "Place an order for the pet, applying the coupon.",
+          "workflowId": "place-order",
+          "parameters": [
+            {
+              "name": "pet_id",
+              "value": "$steps.find-pet.outputs.my_pet_id"
+            },
+            {
+              "name": "coupon_code",
+              "value": "$steps.find-coupons.outputs.my_coupon_code"
+            }
+          ],
+          "successCriteria": [
+            {
+              "condition": "$statusCode == 200"
+            }
+          ],
+          "outputs": {
+            "my_order_id": "$outputs.workflow_order_id"
+          }
+        }
+      ],
+      "outputs": {
+        "apply_coupon_pet_order_id": "$steps.place-order.outputs.my_order_id"
+      }
+    }
+  ],
+  "components": {
+    s<caret>
+    "inputs": {
+      "apply_coupon_input": {
+        "type": "object",
+        "properties": {
+          "my_pet_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Desired tags to use when searching for a pet, in CSV format (e.g. \"puppy, dalmatian\")"
+          },
+          "store_id": {
+            "$ref": "#/components/inputs/store_id"
+          }
+        }
+      },
+      "store_id": {
+        "type": "string",
+        "description": "Indicates the domain name of the store where the customer is browsing or buying pets, e.g. \"pets.example.com\" or \"pets.example.co.uk\"."
+      }
+    }
+  }
+}
