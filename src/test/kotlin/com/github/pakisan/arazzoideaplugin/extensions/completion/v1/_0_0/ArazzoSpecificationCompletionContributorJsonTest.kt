@@ -1,0 +1,15 @@
+package com.github.pakisan.arazzoideaplugin.extensions.completion.v1._0_0
+
+import com.github.pakisan.arazzoideaplugin.extensions.completion.AbstractArazzoSpecificationCompletionContributorTest
+
+/**
+ * @author Pavel Bodiachevskii
+ * @since 2.4.0
+ */
+class ArazzoSpecificationCompletionContributorJsonTest: AbstractArazzoSpecificationCompletionContributorTest() {
+
+    override fun fileExtension(): String = "json"
+
+    override fun arazzoVersion(): String = "1.0.0"
+
+}
