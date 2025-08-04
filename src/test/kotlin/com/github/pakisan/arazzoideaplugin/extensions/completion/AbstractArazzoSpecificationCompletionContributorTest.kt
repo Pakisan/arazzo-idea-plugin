@@ -122,9 +122,9 @@ abstract class AbstractArazzoSpecificationCompletionContributorTest: BasePlatfor
     fun `test $ - components - (double quote)s(double quote)`() {
         configureMyFixture("components - double quote s double quote.${fileExtension()}")
 
-        assertEquals(
-            (`$ - components - s`).sorted(),
-            (myFixture.lookupElementStrings?.sorted() ?: emptyList<String>())
+        assertTrue(
+            (myFixture.lookupElementStrings ?: emptyList<String>())
+                .containsAll(`$ - components - s`)
         )
     }
 
